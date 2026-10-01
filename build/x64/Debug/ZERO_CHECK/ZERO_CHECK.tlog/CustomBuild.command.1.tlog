@@ -1,0 +1,10 @@
+^C:\USERS\ASUS\DOCUMENTS\SKILLBOX\C++_ROBOTECH\5_OOP\MODULES\BUILD\CMAKEFILES\9F6183193187AD79E6B8760F1CF55A6A\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/asus/Documents/SKILLBOX/C++_ROBOTECH/5_OOP/MODULES/matrix -BC:/Users/asus/Documents/SKILLBOX/C++_ROBOTECH/5_OOP/MODULES/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/asus/Documents/SKILLBOX/C++_ROBOTECH/5_OOP/MODULES/build/Matrix.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

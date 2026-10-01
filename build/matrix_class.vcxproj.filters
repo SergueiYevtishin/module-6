@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\asus\Documents\SKILLBOX\C++_ROBOTECH\5_OOP\MODULES\matrix\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\asus\Documents\SKILLBOX\C++_ROBOTECH\5_OOP\MODULES\matrix\src\matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\asus\Documents\SKILLBOX\C++_ROBOTECH\5_OOP\MODULES\matrix\src\matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\asus\Documents\SKILLBOX\C++_ROBOTECH\5_OOP\MODULES\matrix\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{05A77D27-8DAE-3FB5-BCF8-6C073151186B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{CDA020AA-6918-3570-AF2E-BBB595088AFA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
