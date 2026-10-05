@@ -21,13 +21,14 @@ namespace math
         real operator()(int row, int col)const;
         
         void print();
+        Matrix& operator+=(const Matrix& A);
+        Matrix& operator-=(const Matrix& A);
+        Matrix& operator*=(const Matrix& A);
+        std::istream& operator>>(Matrix &A(int rows, int cols));
+        std::ostream& operator<<(const Matrix &A);
 
         friend Matrix operator+(const Matrix &A, const Matrix &B);
         friend Matrix operator-(const Matrix &A, const Matrix &B);
         friend Matrix operator*(const Matrix &A, const Matrix &B);
-        friend Matrix operator+=(Matrix &A, const Matrix &B);
-        //friend Matrix& operator+=(const Matrix &B);
-        friend std::istream& operator>>(std::istream &in, Matrix &A);
-        friend std::ostream& operator<<(std::ostream &out, const Matrix &A);
     };
 }

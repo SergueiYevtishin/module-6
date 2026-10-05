@@ -31,10 +31,19 @@ int main()
     m4.print();
 
     std::cout<<std::endl<<"Matrix m augmented by matrix m1 is:"<<std::endl;
-    math::Matrix m += m1;
+    m += m1;
     //Использование перегруженного метода вывода:
-    std::cout<<m;
+    std::cout<<&m;
 
+    std::cout<<std::endl<<"Matrix m diminished by matrix m1 is:"<<std::endl;
+    m -= m1;
+    std::cout<<&m;
+
+    std::cout<<std::endl<<"Matrix m miltiplied by matrix m1 is:"<<std::endl;
+    m *= m1;
+    std::cout<<&m;
+
+    //Использование перегруженного метода ввода:
     std::cout<<"Do you want to create a new matrix (y/n)?"<<std::endl;
     char User_choice;
     std::cin>>User_choice;
@@ -49,7 +58,7 @@ int main()
         std::cin>>user_cols;
         math::Matrix user_m(user_rows, user_cols);
         std::cout<<"Enter elements of the new matrix in one line:"<<std::endl;
-        std::cin>>user_m;
+        std::cin>>user_m(user_rows, user_cols);
 
     }
 

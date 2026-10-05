@@ -1,5 +1,6 @@
 #include <src/matrix.h>
 using namespace math;
+#include <cmath>
 #include <iostream>
 
 real& Matrix::operator()(int row, int col)
@@ -106,58 +107,83 @@ Matrix math::operator*(const Matrix &A, const Matrix &B)
     return M;
 }
 
-//Опеделение перегруженного метода сложения с присваиванием (вариант 1 - с двумя параметрами)
-Matrix math::operator+=(Matrix &A, const Matrix &B)
+//Опеделение перегруженного метода сложения с присваиванием
+Matrix& Matrix::operator+=(const Matrix& A)
 {
-    if ((A.cols_ != B.cols_) || (A.rows_ != B.rows_))
+    if ((this->cols_ != A.cols_) || (this->rows_ != A.rows_))
     {
         std::cerr << "Matrix: Matrices can not be added!" << std::endl;
         return Matrix(0, 0);
     }
-
-    for(int i=0; i<A.mvec_.size(); ++i)
-    {
-        A.mvec_.at(i)+= B.mvec_.at(i);
-    }
-    return A;
+    for (size_t i = 0; i < mvec_.size(); ++i)
+        mvec_[i] += A.mvec_[i];
+    return *this;
 }
 
-//Опеделение перегруженного метода сложения с присваиванием (вариант 2 - с одним параметром)
-//Matrix& math::operator+=(const Matrix &B)
-//{
-    //if ((this->cols_ != B.cols_) || (this->rows_ != B.rows_))
-    //{
-        //std::cerr << "Matrix: Matrices can not be added!" << std::endl;
-        //return Matrix(0, 0);
-    //}
+//Опеделение перегруженного метода вычитания с присваиванием
+Matrix& Matrix::operator-=(const Matrix& A)
+{
+    if ((this->cols_ != A.cols_) || (this->rows_ != A.rows_))
+    {
+        std::cerr << "Matrix: Matrices can not be subtracted!" << std::endl;
+        return Matrix(0, 0);
+    }
+    for (size_t i = 0; i < mvec_.size(); ++i)
+        mvec_[i] -= A.mvec_[i];
+    return *this;
+}
 
-    //for(int i=0; i<this->mvec_.size(); ++i)
-    //{
-        //this->mvec_.at(i)+= B.mvec_.at(i);
-    //}
-    //return &this;
-//}
+//Опеделение перегруженного метода умножения с присваиванием
+//В общем случае результирующая матрица имеет размер, отличный от размера исходной матрицы.
+//Поэтому метод работает только для квадратных матриц одинакового размера
+//В этом случае результирующая матрица имеет такой же размер, как исходная.
+//Поэтому добавлено второе условие, когда вызов метода выдает ошибку: this->rows_!=A.cols_
+Matrix& Matrix::operator*=(const Matrix &A)
+{
+    if ((this->cols_ != A.rows_)||(this->rows_ != A.cols_))
+    {
+        std::cerr << "Matrix: Matrices can not be multiplied!" << std::endl;
+        return Matrix(0, 0);
+    }
+
+    for(int pos=0; pos<this->mvec_.size(); ++pos)
+    {
+        int row = (int)std::floor(pos/this->cols_);
+        int col = pos - row*this->cols_;
+
+        for (int i=0; i<this->cols_; ++i)
+        {
+            this->mvec_.at(pos) += this->(row,i)*A(i,col);
+        }
+    }
+    return *this;
+}
 
 //Опеделение перегруженного метода ввода
-std::istream& operator>>(std::istream &in, Matrix &A)
+std::istream& operator>>(std::istream &in, Matrix &A(int rows, int cols))
 {
-    Matrix M(A.cols_, A.rows_);
-    for (int i=0; i<M.rows_; ++i)
+    for (int i=0; i<A.rows_; ++i)
     {
         for (int j=0; j<A.cols_; ++j)
-        in>>M[i,j];
+        {
+            std::cout<<"Enter element "<<i<<","<<j<<" of the new matrix";
+            std::cout<<std::endl;
+            in>>A.mvec_.at(cols_*i+j);
+        }
     }
-    return M;
+    return in;
 }
 
 //Опеделение перегруженного метода вывода
 std::ostream& operator<<(std::ostream &out, const Matrix &A)
 {
-    Matrix M(A.cols_, A.rows_);
-    for (int i=0; i<rows_; ++i)
-    {
-        for(int j=0; j<cols_, ++j)
-        out<<A.at(i,j);
+    for (int i=0; i<A.rows_; ++i)
+    { 
+        for (int j=0; j<A.cols_; ++j)
+        {
+            out<<A.mvec_.at(cols_*i + j)<<" ";
+        }
+        std::cout<<std::endl;
     }
-    std::cout<<std::endl;
+    return out;
 }
