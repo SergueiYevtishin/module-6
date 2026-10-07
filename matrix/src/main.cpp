@@ -59,7 +59,6 @@ int main()
         math::Matrix user_m(user_rows, user_cols);
         std::cout<<"Enter elements of the new matrix in one line:"<<std::endl;
         std::cin>>user_m;
-
     }
 
     return 0;
