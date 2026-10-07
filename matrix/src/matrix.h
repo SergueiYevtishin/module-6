@@ -23,7 +23,7 @@ namespace math
         void print();
         Matrix& operator+=(const Matrix& A);
         Matrix& operator-=(const Matrix& A);
-        Matrix& operator*=(const Matrix& A);
+        Matrix& operator*=(real k);
         std::istream& operator>>(Matrix &A(int rows, int cols));
         std::ostream& operator<<(const Matrix &A);
 

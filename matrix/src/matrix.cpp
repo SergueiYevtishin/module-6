@@ -113,7 +113,7 @@ Matrix& Matrix::operator+=(const Matrix& A)
     if ((this->cols_ != A.cols_) || (this->rows_ != A.rows_))
     {
         std::cerr << "Matrix: Matrices can not be added!" << std::endl;
-        return Matrix(0, 0);
+        return *this;
     }
     for (size_t i = 0; i < mvec_.size(); ++i)
         mvec_[i] += A.mvec_[i];
@@ -126,41 +126,24 @@ Matrix& Matrix::operator-=(const Matrix& A)
     if ((this->cols_ != A.cols_) || (this->rows_ != A.rows_))
     {
         std::cerr << "Matrix: Matrices can not be subtracted!" << std::endl;
-        return Matrix(0, 0);
+        return *this;
     }
     for (size_t i = 0; i < mvec_.size(); ++i)
         mvec_[i] -= A.mvec_[i];
     return *this;
 }
 
-//Опеделение перегруженного метода умножения с присваиванием
-//В общем случае результирующая матрица имеет размер, отличный от размера исходной матрицы.
-//Поэтому метод работает только для квадратных матриц одинакового размера
-//В этом случае результирующая матрица имеет такой же размер, как исходная.
-//Поэтому добавлено второе условие, когда вызов метода выдает ошибку: this->rows_!=A.cols_
-Matrix& Matrix::operator*=(const Matrix &A)
+//Опеделение перегруженного метода умножения матрицы на число с присваиванием
+
+Matrix& Matrix::operator*=(real k)
 {
-    if ((this->cols_ != A.rows_)||(this->rows_ != A.cols_))
-    {
-        std::cerr << "Matrix: Matrices can not be multiplied!" << std::endl;
-        return Matrix(0, 0);
-    }
-
-    for(int pos=0; pos<this->mvec_.size(); ++pos)
-    {
-        int row = (int)std::floor(pos/this->cols_);
-        int col = pos - row*this->cols_;
-
-        for (int i=0; i<this->cols_; ++i)
-        {
-            this->mvec_.at(pos) += this->(row,i)*A(i,col);
-        }
-    }
+    for (size_t i = 0; i < mvec_.size(); ++i) 
+    mvec_[i] *= k;
     return *this;
 }
 
 //Опеделение перегруженного метода ввода
-std::istream& operator>>(std::istream &in, Matrix &A(int rows, int cols))
+std::istream& operator>>(std::istream &in, Matrix &A)
 {
     for (int i=0; i<A.rows_; ++i)
     {
@@ -168,7 +151,7 @@ std::istream& operator>>(std::istream &in, Matrix &A(int rows, int cols))
         {
             std::cout<<"Enter element "<<i<<","<<j<<" of the new matrix";
             std::cout<<std::endl;
-            in>>A.mvec_.at(cols_*i+j);
+            in>>A.mvec_.at(A.cols_*i+j);
         }
     }
     return in;
